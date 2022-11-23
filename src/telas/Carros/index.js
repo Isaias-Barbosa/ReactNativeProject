@@ -1,33 +1,41 @@
-import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { FlatList, SafeAreaView, StatusBar, StyleSheet } from "react-native"
+import Cadastro from "./componentes/Cadastro"
+import { Car } from "./componentes/Car"
+import { useEffect, useState } from "react"
+import { buscaCarro, criaTabela } from "../../servicos/Carros/"
 
-import Topo from './componentes/Topo';
-import Botao from './componentes/Botao';
-import Itens from './componentes/itens';
+export default function App() {
 
+    useEffect(() => {
+        criaTabela()
+        mostraCarro()
+    }, [])
 
-export default function Carros({ topo, itens, nbotao, navigation, cadastro, editcarro }) {
-    return <ScrollView>
-        <Topo {...topo} />
-        <View style={estilos.cesta}>
-            {/*
-                <Carros {...mock} />
-            */}
-            <Itens
-                {...itens}
-                navigation={navigation}
-            />
-            <Botao
-                {...nbotao}
-                {...cadastro}
-                navigation={navigation} />
-        </View>
-    </ScrollView>
+    const [carros, setCarros] = useState([])
+
+    async function mostraCarro() {
+        const todosCarros = await buscaCarro()
+        setCarros(todosCarros)
+        console.log(todosCarros)
+    }
+
+    return (
+        <SafeAreaView style={estilos.container}>
+            <FlatList
+                data={carros}
+                renderItem={(carro) => <Car {...carro} />}
+                keyExtractor={carro => carro.id} />
+            <Cadastro mostraCarros={mostraCarro} />
+            <StatusBar />
+        </SafeAreaView>
+    )
 }
 
 const estilos = StyleSheet.create({
-    cesta: {
-        paddingVertical: 8,
-        paddingHorizontal: 16,
+    container: {
+        flex: 1,
+        alignItems: "stretch",
+        justifyContent: "flex-start",
     },
-});
+})
+
