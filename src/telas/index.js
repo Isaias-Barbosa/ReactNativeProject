@@ -49,18 +49,13 @@ export default function App({ navigation }) {
             </View>
             <Texto style={estilos.titulo}>Escolha aonde você quer ir!</Texto>
             <TouchableOpacity style={estilos.bt}
-                onPress={() => navigation.navigate('Carros')}>
-                <Texto style={estilos.textoBotao}>Carros</Texto>
+                onPress={() => navigation.navigate('Tarefas')}>
+                <Texto style={estilos.textoBotao}>Tarefas</Texto>
             </TouchableOpacity>
 
             <TouchableOpacity style={estilos.bt}
-                onPress={() => navigation.navigate('Carro', { nome, imagem, preco, descricao, edit, imagemcarro })}>
-                <Texto style={estilos.textoBotao}>Cadastrar Usuarios</Texto>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={estilos.bt}
-                onPress={() => navigation.navigate('Carro', { nome, imagem, preco, descricao, edit, imagemcarro })}>
-                <Texto style={estilos.textoBotao}>Listar Usuarios</Texto>
+                onPress={() => navigation.navigate('Usuarios',)}>
+                <Texto style={estilos.textoBotao}>Usuarios</Texto>
             </TouchableOpacity>
             <StatusBar />
         </SafeAreaView>
